@@ -69,7 +69,7 @@
         camera.position.z - 0.1
       );
       controls.noZoom = true;
-      controls.noPan = true;
+      controls.noPan = false;
 
       function setOrientationControls(e) {
         if (!e.alpha) {
@@ -93,12 +93,12 @@
       //added light
       var objlight = new THREE.PointLight(0xffffff, 0.7);
 
-      objlight.position.set(0, 50, 70);
+      objlight.position.set(0, 50, 60);
 
       scene.add(objlight);
 
       var texture = THREE.ImageUtils.loadTexture(
-        'textures/patterns/yellowchecker.png'
+        'textures/patterns/darkbluechecker.png'
       );
       texture.wrapS = THREE.RepeatWrapping;
       texture.wrapT = THREE.RepeatWrapping;
@@ -163,6 +163,7 @@
 
         });
 
+        //add the labels
         yscale.ticks(5).forEach(function(t, i, a){
 
           //Draw label
@@ -215,6 +216,10 @@
 
       var title = createType({text: "U.S. Population By Age, January 2000 in millions"});
       title.position.set(-chartwidth/2, chartheight + 10, -5);
+      toMove = [];
+      toMove[0] = -chartwidth/2;
+      toMove[1] =  chartheight + 10;
+      toMove[3] =  -5;
       scene.add(title);
 
       var xzerolabel = createType({text: "0 years old", size: 1.5});
@@ -233,6 +238,9 @@
       srctext.position.set(0 - xOffset, 1, 0);
       scene.add(srctext);
 
+      
+      animate2(toMove);
+      
     } //end of init
 
    
@@ -264,24 +272,35 @@
 
     function animate(t) {
       requestAnimationFrame(animate);
-
       update(clock.getDelta());
       render(clock.getDelta());
-
-      //gives is the motion: controlling the camera
-
-      for( var i = 0; i < 1; i++ ) {
-        var timer = new Date().getTime() * 0.0005;
-   
-        camera.position.x = Math.floor(Math.cos( timer ) * 200);
-        camera.position.z = Math.floor(Math.sin( timer ) * 200);
-        camera.position.y = Math.floor(Math.sin( timer ) * 200);
-       
-        renderer.render(scene, camera);
-      }
-
-
     }
+
+    function animate2(v) {
+      //gives is the motion: controlling the camera
+      requestAnimationFrame(animate2);
+      //
+      //render2(clock.getDelta());
+      //var timer = new Date().getTime() * 0.0005;
+      render2();
+      
+      
+      
+      renderer.render(scene, camera);
+     
+    }
+
+    function render2(){
+
+      var elvis = 1 ;
+       
+      //var timer = new Date().getTime() * 0.0005;
+      //var 
+
+     
+      //renderer.render(scene, camera);
+    }
+
 
     function fullscreen() {
       if (container.requestFullscreen) {
